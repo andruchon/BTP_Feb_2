@@ -1,0 +1,9 @@
+CLASS zbp_i_booksuppl_log DEFINITION
+PUBLIC
+ABSTRACT
+FINAL
+FOR BEHAVIOR OF z_i_travel_1979log.
+ENDCLASS.
+
+CLASS zbp_i_booksuppl_log IMPLEMENTATION.
+ENDCLASS.

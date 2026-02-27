@@ -1,0 +1,71 @@
+managed;
+
+define behavior for Z_I_TRAVEL_1979LOG alias Travel
+implementation in class zbp_i_travel_1979log unique
+persistent table ztravel_1979log
+with additional save
+lock master
+authorization master ( instance )
+etag master last_changed_at
+{
+  // administrative fields: read only
+  field ( readonly ) last_changed_at, last_changed_by, created_at, created_by;
+  // mandatory fields that are required to create a travel
+  field ( mandatory : create ) travel_id, agency_id, overall_status, booking_fee, currency_code;
+  // dynamic field control
+  field ( features : instance ) travel_id, overall_status;
+  create;
+  update;
+  delete;
+  // validations
+  validation validateCustomer on save { create; field customer_id; }
+  validation validateDates on save { create; field begin_date, end_date; }
+  validation validateStatus on save
+  { create; field overall_status; }
+  ////actions
+  action ( features : instance ) acceptTravel result [1] $self;
+  action ( features : instance ) rejectTravel result [1] $self;
+  action createTravelByTemplate result [1] $self;
+  association _Booking { create ( features : instance ); }
+  mapping for ztravel_1979log corresponding;
+}
+
+define behavior for Z_I_BOOKING_1979LOG alias Booking
+implementation in class zbp_i_booking_log unique
+persistent table zbooking_1979log
+lock dependent by _Travel
+authorization dependent by _Travel
+etag master last_change_at
+{
+  // static fields control
+  field ( readonly ) travel_id;
+  field ( mandatory : create ) booking_id, carrier_id, connection_id, flight_date, booking_status;
+  update;
+  delete;
+  //validations
+  validation validateStatus on save
+  { create; field booking_status; }
+  //determinations
+  determination calculateTotalFlightPrice on modify
+  { field flight_price, currency_code; }
+  association _BookingSupplement { create ( features : instance ); }
+  association _Travel { }
+  mapping for zbooking_1979log corresponding;
+}
+define behavior for Z_I_BOOKSUPPL_1979LOG alias Supplement
+implementation in class zbp_i_booksuppl_log unique
+with unmanaged save
+lock dependent by _Travel
+authorization dependent by _Travel
+etag master last_changed_at
+{
+  field ( readonly ) travel_id, booking_id;
+  field ( mandatory : create ) supplement_id, price;
+  update;
+  delete;
+  //determinations
+  determination calculateTotalSupplPrice on modify { field price, currency_CODE; }
+  mapping for zbooksup_1979log corresponding;
+  association _Travel { }
+
+}

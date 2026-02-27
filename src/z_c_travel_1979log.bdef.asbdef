@@ -1,0 +1,32 @@
+projection;
+//strict ( 2 ); //Uncomment this line in order to enable strict mode 2. The strict mode has two variants (strict(1), strict(2)) and is prerequisite to be future proof regarding syntax and to be able to release your BO.
+
+define behavior for Z_C_TRAVEL_1979LOG alias Travel
+{
+  use create;
+  use update;
+  use delete;
+
+  use action acceptTravel;
+  use action rejectTravel;
+  use action createTravelByTemplate;
+
+  use association _Booking { create; }
+}
+
+define behavior for Z_C_BOOKING_1979LOG alias Booking
+{
+  use update;
+  use delete;
+
+  use association _BookingSupplement { create; }
+  use association _Travel;
+}
+
+define behavior for Z_C_BOOKSUPPL_LOG alias Supplement
+{
+  use update;
+  use delete;
+
+  use association _Travel;
+}
