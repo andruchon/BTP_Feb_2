@@ -1,0 +1,16 @@
+managed implementation in class zbp_i_employ_1979log unique;
+with draft;
+define behavior for Z_I_EMPLOY_1979LOG alias Employees
+persistent table zemploy_1979log
+draft table zempl_1979log_d
+lock master
+//authorization master ( instance )
+total etag lchg_date_time
+etag master lchg_date_time
+{
+  //  create ( authorization : global );
+  create;
+  update;
+  delete;
+    field ( readonly, numbering : managed ) E_Number;
+}

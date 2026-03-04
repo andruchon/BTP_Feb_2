@@ -1,0 +1,71 @@
+@Metadata.layer: #CORE
+@Search.searchable: true
+@UI :{ headerInfo : { typeName : 'Employee',
+                      typeNamePlural : 'Employees',
+                      title : { type : #STANDARD,
+                                 label : 'eMPLOYEES',
+                                 value : 'E_Name' } } }
+annotate view Z_C_EMPLOY_1979LOG with
+{
+  @UI.facet: [{ id: 'Employees',
+                 purpose: #STANDARD,
+                 type: #IDENTIFICATION_REFERENCE,
+                 label : 'Employee',
+                 position : 10 }]
+  @Search.defaultSearchElement: true
+  @UI: {
+                   lineItem: [ { position: 10, label: 'Employee Number', importance: #HIGH } ],
+                   identification: [ { position: 10, label: 'Employee Number' } ] }
+  e_number;
+  @UI: {
+                 lineItem: [ { position: 20, label: 'Employee Name', importance: #HIGH } ],
+                 identification: [ { position: 20, label: 'Employee Name' } ],
+                 selectionField: [{ position: 20 }]  }
+  e_name;
+  @UI: {
+             lineItem: [ { position: 10, label: 'Department', importance: #HIGH } ],
+             identification: [ { position: 30, label: 'Department' } ],
+             selectionField: [{ position: 30 }]  }
+  e_department;
+  @UI: {
+             lineItem: [ { position: 40, label: 'Status', importance: #HIGH } ],
+             identification: [ { position: 40, label: 'Status' } ]  }
+  status;
+  @UI: {
+                lineItem: [ { position: 50, label: 'Job Tittle', importance: #MEDIUM } ],
+                identification: [ { position: 40, label: 'Job Tittle' } ],
+                selectionField: [{ position: 50 }]  }
+  job_tittle;
+  @UI: {
+                 lineItem: [ { position: 60, label: 'Start Dates', importance: #LOW } ],
+                 identification: [ { position: 60, label: 'Start Date' } ]  }
+  start_date;
+  @UI: {
+                 lineItem: [ { position: 70, label: 'End Dates', importance: #LOW } ],
+                 identification: [ { position: 70, label: 'End Dates' } ]  }
+  end_date;
+  @UI: {
+                lineItem: [ { position: 80, label: 'Email', importance: #MEDIUM } ],
+                identification: [ { position: 80, label: 'Email' } ]  }
+  email;
+  @UI: {
+                 lineItem: [ { position: 90, label: 'Manager Number', importance: #HIGH } ],
+                 identification: [ { position: 90, label: 'Manager Number' } ]  }
+  m_number;
+  @UI: {
+                 lineItem: [ { position: 100, label: 'Manager Name', importance: #HIGH } ],
+                 identification: [ { position: 100, label: 'Manager Name' } ]  }
+  m_name;
+  @UI: {
+               lineItem: [ { position: 110, label: 'Manager Department', importance: #MEDIUM } ],
+               identification: [ { position: 110, label: 'Manager Department' } ]  }
+  m_department;
+  @UI.adaptationHidden: true
+  crea_date_time;
+  @UI.adaptationHidden: true
+  crea_uname;
+  @UI.adaptationHidden: true
+  lchg_date_time;
+  @UI.adaptationHidden: true
+  lchg_uname;
+}
